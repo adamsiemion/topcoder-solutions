@@ -1,3 +1,5 @@
+//https://arena.topcoder.com/#/u/practiceCode/1320/1764/1889/1/1320
+
 public class AvoidRoads {
 
     public long numWays(int width, int height, String[] bad) {
