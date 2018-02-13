@@ -4,7 +4,7 @@ public class AvoidRoads {
 
     public long numWays(int width, int height, String[] bad) {
 
-        long points[][] = new long[width+2][height+2];
+        long points[][] = new long[width+1][height+1];
         boolean blocked[][][] = new boolean[width+1][height+1][2];
 
         points[0][0] = 1;
@@ -17,9 +17,9 @@ public class AvoidRoads {
             int h2 = Integer.parseInt(p[3]);
 
             if (w1 != w2) {
-                blocked[Math.min(w1, w2)][h1][0] = true;
+                blocked[Math.max(w1, w2)][h1][0] = true;
             } else if (h1 != h2) {
-                blocked[w1][Math.min(h1, h2)][1] = true;
+                blocked[w1][Math.max(h1, h2)][1] = true;
             } else {
                 throw new RuntimeException();
             }
@@ -27,11 +27,11 @@ public class AvoidRoads {
 
         for (int w = 0; w <= width; w++) {
             for (int h = 0; h <= height; h++) {
-                if (!blocked[w][h][0]) {
-                    points[w+1][h] += points[w][h];
+                if (w > 0 && !blocked[w][h][0]) {
+                    points[w][h] += points[w-1][h];
                 }
-                if (!blocked[w][h][1]) {
-                    points[w][h+1] += points[w][h];
+                if (h > 0 && !blocked[w][h][1]) {
+                    points[w][h] += points[w][h-1];
                 }
             }
         }
